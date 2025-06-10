@@ -7,7 +7,7 @@ public class App {
 	static int gerateneZahl;
 	
 	public static void spielStart() {
-		zufallszahl = (int) (Math.random() * 10);
+		zufallszahl = (int) (Math.random() * 11);
 		System.out.println("Ich habe eine Zahl zwischen 0 und 10 ausgedacht. Rate sie!" + zufallszahl);
 		zahlenEingabe();
 	}
