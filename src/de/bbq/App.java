@@ -5,32 +5,40 @@ import java.util.Scanner;
 public class App {
 	static int zufallszahl;
 	static int gerateneZahl;
+	static int maxZahl;
+	static int count = 0;
 	
 	public static void spielStart() {
-		zufallszahl = (int) (Math.random() * 11);
-		System.out.println("Ich habe eine Zahl zwischen 0 und 10 ausgedacht. Rate sie!" + zufallszahl);
+		System.out.print("Bitte geben Sie eine maximale Zahl ein: ");
+		Scanner sc = new Scanner(System.in);
+		maxZahl = sc.nextInt();
+		zufallszahl = (int) (Math.random() * maxZahl);
+		System.out.println("Die zufallszahl lautet: " + zufallszahl);
 		zahlenEingabe();
 	}
 	
 	public static void zahlenEingabe() {
-		System.out.print("Geben Sie die Zahl ein: ");
+		System.out.print("Welche Zahl raten Sie? ");
 		Scanner sc = new Scanner(System.in);
-		
+				
 		if (sc.hasNextInt()) {
 			gerateneZahl = sc.nextInt();
-			if (gerateneZahl > 10) {
-				System.out.println("Bitte geben Sie eine Zahl zwischen 0 und 10 ein");
+			if (gerateneZahl > maxZahl) {
+				System.out.println("Bitte geben Sie eine Zahl zwischen 0 und " + maxZahl + " ein");
 				zahlenEingabe();
-			} else if (gerateneZahl < 0) {
-				System.out.println("Bitte geben Sie eine Zahl zwischen 0 und 10 ein");
+				} else if (gerateneZahl < 0) {
+					System.out.println("Bitte geben Sie eine Zahl zwischen 0 und " + maxZahl + " ein");
+					zahlenEingabe();
+				} else {
+					count++;
+					System.out.println("Anzahl Versuche: " + count);
+					System.out.println("Die geratene zahl lautet: " + gerateneZahl);
+					zahlenVergleich();
+				}
+			} else {
+				System.out.println("Bitte geben Sie eine Zahl zwischen 0 und " + maxZahl + " ein");
 				zahlenEingabe();
-			}
-			System.out.println("Die geratene zahl lautet: " + gerateneZahl);
-		} else {
-			System.out.println("Bitte geben Sie eine Zahl zwischen 0 und 10 ein");
-			zahlenEingabe();
 		}
-		
 		zahlenVergleich();
 	}
 	
@@ -40,20 +48,21 @@ public class App {
 			System.out.print("Noch mal spielen? Wenn ja, tippe 1 (und Enter) sonst eine andere Zahl: ");
 			
 			
-			Scanner sc = new Scanner(System.in);
-			int nochmalSpielen = sc.nextInt();
-			if (nochmalSpielen == 1) {
-				spielStart();
-			} else {
-				System.out.println("Tschüss! Bis zum nächsten Mal :-)");
-			}
+			Scanner scNochmalSpielen = new Scanner(System.in);
+			int nochmalSpielen = scNochmalSpielen.nextInt();
+			if (scNochmalSpielen.hasNextInt()) {
+				if (nochmalSpielen == 1) {
+					spielStart();
+				} else {
+					System.out.println("Tschüss! Bis zum nächsten Mal :-)");
+				}
 			
-		} else {
-			System.out.println("Falsch! Versuchen Sie es nochmal!");
-			zahlenEingabe();
+			}  else {
+				zahlenVergleich();				
+			}
 		}
 	}
-
+	
 	public static void main(String[] args) {
 		spielStart();		
 		
