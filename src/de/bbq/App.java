@@ -15,8 +15,22 @@ public class App {
 	public static void zahlenEingabe() {
 		System.out.print("Geben Sie die Zahl ein: ");
 		Scanner sc = new Scanner(System.in);
-		gerateneZahl = sc.nextInt();
-		System.out.println("Die geratene zahl lautet: " + gerateneZahl);
+		
+		if (sc.hasNextInt()) {
+			gerateneZahl = sc.nextInt();
+			if (gerateneZahl > 10) {
+				System.out.println("Bitte geben Sie eine Zahl zwischen 0 und 10 ein");
+				zahlenEingabe();
+			} else if (gerateneZahl < 0) {
+				System.out.println("Bitte geben Sie eine Zahl zwischen 0 und 10 ein");
+				zahlenEingabe();
+			}
+			System.out.println("Die geratene zahl lautet: " + gerateneZahl);
+		} else {
+			System.out.println("Bitte geben Sie eine Zahl zwischen 0 und 10 ein");
+			zahlenEingabe();
+		}
+		
 		zahlenVergleich();
 	}
 	
